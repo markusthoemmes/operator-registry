@@ -42,7 +42,7 @@ func (r *ContainerCommandRunner) GetToolName() string {
 // Pull takes a container image path hosted on a container registry and runs the
 // pull command to download it onto the local environment
 func (r *ContainerCommandRunner) Pull(image string) error {
-	args := []string{"pull", image}
+	args := []string{"pull", image, "--tls-verify=false"}
 
 	command := exec.Command(r.containerTool.String(), args...)
 
