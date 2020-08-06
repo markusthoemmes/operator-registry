@@ -1,10 +1,10 @@
-FROM quay.io/operator-framework/upstream-registry-builder AS builder
-
-FROM scratch
-LABEL operators.operatorframework.io.index.database.v1=./index.db
-COPY database ./
-COPY --from=builder /bin/opm /opm
-COPY --from=builder /bin/grpc_health_probe /bin/grpc_health_probe
+FROM markusthoemmes/opm-builder
 EXPOSE 50051
-ENTRYPOINT ["/opm"]
-CMD ["registry", "serve", "--database", "index.db"]
+
+RUN echo "http://nl.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
+RUN echo "http://nl.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories
+RUN apk update
+RUN apk add podman
+
+ENTRYPOINT ["/bin/opm"]
+CMD ["registry", "serve", "--database", "/database/index.db"]

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"os"
 
 	"github.com/sirupsen/logrus"
@@ -15,6 +16,8 @@ import (
 )
 
 func main() {
+	fmt.Println("Here I am")
+
 	rootCmd := &cobra.Command{
 		Use:   "opm",
 		Short: "operator package manager",
